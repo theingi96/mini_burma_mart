@@ -1,0 +1,19 @@
+<h1>MiniBurma Mart</h1>
+<p>Burmese Grocery Store in Japan</p>
+
+<% @products.each do |product| %>
+  <div style="border: 1px solid #ccc; padding: 16px; margin-bottom: 16px;">
+    <% if product.image.attached? %>
+      <%= image_tag product.image, size: "200x200" %>
+    <% end %>
+
+    <h2>
+      <%= link_to product.name, product_path(product) %>
+    </h2>
+
+    <p><strong>Category:</strong> <%= product.category.name %></p>
+    <p><strong>Price:</strong> ¥<%= product.price %></p>
+    <p><strong>Stock:</strong> <%= product.stock %></p>
+    <p><%= product.description %></p>
+  </div>
+<% end %>
