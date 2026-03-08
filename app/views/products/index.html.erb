@@ -1,6 +1,12 @@
 <h1>MiniBurma Mart</h1>
 <p>Burmese Grocery Store in Japan</p>
 
+<% if user_signed_in? %>
+  <p><%= link_to "Add New Product", new_product_path %></p>
+<% else %>
+  <p><%= link_to "Login", new_user_session_path %> to add products</p>
+<% end %>
+
 <% @products.each do |product| %>
   <div style="border: 1px solid #ccc; padding: 16px; margin-bottom: 16px;">
     <% if product.image.attached? %>
