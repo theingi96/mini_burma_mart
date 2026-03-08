@@ -1,15 +1,464 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f7f7f8;
+  color: #222;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+.site-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #111;
+}
+
+.logo:hover {
+  opacity: 0.85;
+}
+
+.tagline {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #777;
+}
+
+.nav-links {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  color: #333;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.nav-link:hover {
+  opacity: 0.7;
+}
+
+.nav-button {
+  background: #222;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+}
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #fff5d6, #ffe4b5);
+  padding: 60px 0;
+}
+
+.hero-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hero-text {
+  flex: 1;
+  min-width: 280px;
+}
+
+.hero-text h1 {
+  font-size: 42px;
+  margin-top: 0;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.hero-text p {
+  font-size: 18px;
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.primary-btn,
+.secondary-btn,
+.small-btn {
+  display: inline-block;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.primary-btn:hover,
+.secondary-btn:hover,
+.small-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.primary-btn {
+  background: #222;
+  color: #fff;
+}
+
+.secondary-btn {
+  background: #fff;
+  color: #222;
+  border: 1px solid #ccc;
+}
+
+.hero-card {
+  width: 320px;
+  background: #fff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.hero-card h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.hero-card ul {
+  margin: 0;
+  padding-left: 20px;
+  line-height: 1.9;
+}
+
+/* Products */
+.products-section {
+  padding: 50px 0 70px;
+}
+
+.section-heading {
+  margin-bottom: 24px;
+}
+
+.section-heading h2 {
+  font-size: 32px;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.section-heading p {
+  color: #666;
+  margin: 0;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.product-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.product-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: #f0f0f0;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.no-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  background: #f0f0f0;
+}
+
+.category-badge,
+.stock-badge {
+  position: absolute;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.category-badge {
+  top: 12px;
+  left: 12px;
+  background: #fff;
+  color: #333;
+}
+
+.stock-badge {
+  top: 12px;
+  right: 12px;
+  color: #fff;
+}
+
+.in-stock {
+  background: #2e8b57;
+}
+
+.out-stock {
+  background: #d9534f;
+}
+
+.product-card-body {
+  padding: 18px;
+}
+
+.product-name {
+  margin: 0 0 10px;
+  font-size: 20px;
+}
+
+.product-link {
+  color: #111;
+  transition: opacity 0.2s ease;
+}
+
+.product-link:hover {
+  opacity: 0.7;
+}
+
+.product-description {
+  color: #666;
+  min-height: 45px;
+  line-height: 1.6;
+}
+
+.product-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px 0;
+  gap: 12px;
+}
+
+.price {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.stock {
+  color: #666;
+  font-size: 14px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.small-btn {
+  background: #222;
+  color: #fff;
+  font-size: 14px;
+  padding: 10px 14px;
+}
+
+.light-btn {
+  background: #eaeaea;
+  color: #222;
+}
+
+.danger-btn {
+  background: #b22222;
+  color: #fff;
+}
+
+/* Flash messages */
+.flash {
+  width: 90%;
+  max-width: 1200px;
+  margin: 16px auto 0;
+  padding: 12px 16px;
+  border-radius: 10px;
+}
+
+.notice {
+  background: #e8f7e8;
+  color: #256029;
+}
+
+.alert {
+  background: #fdeaea;
+  color: #9f2d2d;
+}
+
+/* Product Detail */
+.product-detail-section {
+  padding: 40px 0;
+}
+
+.product-detail-card {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  background: #fff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.product-detail-image-area {
+  flex: 1;
+  min-width: 300px;
+}
+
+.product-detail-image {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.product-detail-no-image {
+  height: 350px;
+  border-radius: 12px;
+}
+
+.product-detail-info {
+  flex: 1;
+  min-width: 300px;
+}
+
+.product-detail-category {
+  color: #777;
+  font-weight: bold;
+  margin-top: 0;
+}
+
+.product-detail-name {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.product-detail-price {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.product-detail-stock {
+  margin-bottom: 12px;
+}
+
+.product-detail-description {
+  line-height: 1.8;
+  color: #555;
+}
+
+.product-detail-cart-button {
+  margin-top: 20px;
+}
+
+.product-detail-cart-button form {
+  display: inline-block;
+  margin: 0;
+}
+
+.product-detail-actions {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Footer */
+.site-footer {
+  background: #111;
+  color: #fff;
+  padding: 24px 0;
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero {
+    padding: 40px 0;
+  }
+
+  .hero-text h1 {
+    font-size: 32px;
+  }
+
+  .section-heading h2 {
+    font-size: 26px;
+  }
+
+  .product-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product-detail-card {
+    padding: 18px;
+  }
+
+  .product-detail-image-area,
+  .product-detail-info {
+    min-width: 100%;
+  }
+
+  .product-detail-image {
+    max-width: 100%;
+  }
+}

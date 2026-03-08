@@ -1,12 +1,59 @@
-<h1><%= @product.name %></h1>
+<section class="product-detail-section">
+  <div class="container">
+    <div class="product-detail-card">
+      <div class="product-detail-image-area">
+        <% if @product.image.attached? %>
+          <%= image_tag @product.image, class: "product-detail-image" %>
+        <% else %>
+          <div class="no-image product-detail-no-image">No Image</div>
+        <% end %>
+      </div>
 
-<% if @product.image.attached? %>
-  <%= image_tag @product.image, size: "300x300" %>
-<% end %>
+      <div class="product-detail-info">
+        <p class="product-detail-category">
+          <%= @product.category.name %>
+        </p>
 
-<p><strong>Category:</strong> <%= @product.category.name %></p>
-<p><strong>Price:</strong> ¥<%= @product.price %></p>
-<p><strong>Stock:</strong> <%= @product.stock %></p>
-<p><strong>Description:</strong> <%= @product.description %></p>
+        <h1 class="product-detail-name">
+          <%= @product.name %>
+        </h1>
 
-<%= link_to "Back to products", root_path %>
+        <p class="product-detail-price">
+          ¥<%= @product.price %>
+        </p>
+
+        <p class="product-detail-stock">
+          <strong>Stock:</strong> <%= @product.stock %>
+        </p>
+
+        <p class="product-detail-description">
+          <%= @product.description %>
+        </p>
+
+        <% if @product.stock > 0 %>
+          <div class="product-detail-cart-button">
+            <%= button_to "Add to Cart",
+                  cart_items_path(product_id: @product.id),
+                  method: :post,
+                  class: "primary-btn" %>
+          </div>
+        <% else %>
+          <p class="stock-badge out-stock">Sold Out</p>
+        <% end %>
+
+        <div class="product-detail-actions">
+          <%= link_to "Back to Products", root_path, class: "secondary-btn" %>
+
+          <% if user_signed_in? %>
+            <%= link_to "Edit Product", edit_product_path(@product), class: "small-btn light-btn" %>
+
+            <%= link_to "Delete Product",
+                  product_path(@product),
+                  data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                  class: "small-btn danger-btn" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
