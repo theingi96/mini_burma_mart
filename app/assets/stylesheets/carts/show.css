@@ -1,0 +1,26 @@
+.cart-quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-quantity-controls form {
+  margin: 0;
+  display: inline-block;
+}
+
+.qty-btn {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 8px;
+  background: #222;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.qty-btn:hover {
+  opacity: 0.9;
+}

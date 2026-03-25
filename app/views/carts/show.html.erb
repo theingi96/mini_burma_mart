@@ -10,6 +10,7 @@
         <div class="cart-items-area">
           <% @cart_items.each do |item| %>
             <div class="cart-item-card">
+
               <div class="cart-item-image-wrap">
                 <% if item.product.image.attached? %>
                   <%= image_tag item.product.image, class: "cart-item-image" %>
@@ -19,15 +20,40 @@
               </div>
 
               <div class="cart-item-info">
-                <p class="cart-item-category"><%= item.product.category.name %></p>
+                <p class="cart-item-category">
+                  <%= item.product.category.name %>
+                </p>
+
                 <h2 class="cart-item-name">
                   <%= link_to item.product.name, product_path(item.product), class: "cart-item-link" %>
                 </h2>
-                <p class="cart-item-description"><%= truncate(item.product.description, length: 100) %></p>
+
+                <p class="cart-item-description">
+                  <%= truncate(item.product.description, length: 100) %>
+                </p>
 
                 <div class="cart-item-meta">
-                  <span class="cart-item-price">¥<%= item.product.price %></span>
-                  <span class="cart-item-quantity">Qty: <%= item.quantity %></span>
+                  <span class="cart-item-price">
+                    ¥<%= item.product.price %>
+                  </span>
+
+                  <div class="cart-quantity-controls">
+                    <%= button_to "-",
+                          cart_item_path(item, quantity: item.quantity - 1),
+                          method: :patch,
+                          class: "small-btn light-btn",
+                          disabled: item.quantity <= 1 %>
+
+                    <span class="cart-item-quantity">
+                      <%= item.quantity %>
+                    </span>
+
+                    <%= button_to "+",
+                          cart_item_path(item, quantity: item.quantity + 1),
+                          method: :patch,
+                          class: "small-btn" %>
+                  </div>
+
                   <span class="cart-item-subtotal">
                     Subtotal: ¥<%= item.product.price * item.quantity %>
                   </span>
@@ -39,6 +65,7 @@
                         method: :delete,
                         class: "danger-btn" %>
                 </div>
+
               </div>
             </div>
           <% end %>
@@ -68,6 +95,7 @@
           </div>
         </aside>
       </div>
+
     <% else %>
       <div class="empty-cart-card">
         <h2>Your cart is empty</h2>

@@ -19,6 +19,21 @@ class CartItemsController < ApplicationController
     end
   end
 
+  def update
+      cart = current_user.cart
+      item = cart.cart_items.find(params[:id])
+
+      new_quantity = params[:quantity].to_i
+
+      if new_quantity > 0
+        item.update(quantity: new_quantity)
+        redirect_to cart_path, notice: "Cart updated."
+      else
+        item.destroy
+        redirect_to cart_path, notice: "Item removed from cart."
+      end
+  end
+
   def destroy
     cart = current_user.cart
     item = cart.cart_items.find(params[:id])
