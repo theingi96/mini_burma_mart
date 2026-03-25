@@ -1,0 +1,79 @@
+<section class="cart-page">
+  <div class="container">
+    <div class="cart-header">
+      <h1>Your Shopping Cart</h1>
+      <p>Review your selected Burmese groceries before checkout.</p>
+    </div>
+
+    <% if @cart_items.any? %>
+      <div class="cart-layout">
+        <div class="cart-items-area">
+          <% @cart_items.each do |item| %>
+            <div class="cart-item-card">
+              <div class="cart-item-image-wrap">
+                <% if item.product.image.attached? %>
+                  <%= image_tag item.product.image, class: "cart-item-image" %>
+                <% else %>
+                  <div class="no-image cart-no-image">No Image</div>
+                <% end %>
+              </div>
+
+              <div class="cart-item-info">
+                <p class="cart-item-category"><%= item.product.category.name %></p>
+                <h2 class="cart-item-name">
+                  <%= link_to item.product.name, product_path(item.product), class: "cart-item-link" %>
+                </h2>
+                <p class="cart-item-description"><%= truncate(item.product.description, length: 100) %></p>
+
+                <div class="cart-item-meta">
+                  <span class="cart-item-price">¥<%= item.product.price %></span>
+                  <span class="cart-item-quantity">Qty: <%= item.quantity %></span>
+                  <span class="cart-item-subtotal">
+                    Subtotal: ¥<%= item.product.price * item.quantity %>
+                  </span>
+                </div>
+
+                <div class="cart-item-actions">
+                  <%= button_to "Remove",
+                        cart_item_path(item),
+                        method: :delete,
+                        class: "danger-btn" %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <aside class="cart-summary-card">
+          <h2>Order Summary</h2>
+
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>¥<%= @subtotal %></span>
+          </div>
+
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span>¥<%= @shipping_fee %></span>
+          </div>
+
+          <div class="summary-row summary-total">
+            <span>Total</span>
+            <span>¥<%= @total %></span>
+          </div>
+
+          <div class="cart-summary-actions">
+            <%= link_to "Continue Shopping", root_path, class: "secondary-btn cart-full-width-btn" %>
+            <%= link_to "Proceed to Checkout", "#", class: "primary-btn cart-full-width-btn" %>
+          </div>
+        </aside>
+      </div>
+    <% else %>
+      <div class="empty-cart-card">
+        <h2>Your cart is empty</h2>
+        <p>Add your favorite Burmese groceries and snacks to start shopping.</p>
+        <%= link_to "Browse Products", root_path, class: "primary-btn" %>
+      </div>
+    <% end %>
+  </div>
+</section>
