@@ -3,7 +3,7 @@ class CartsController < ApplicationController
 
   def show
     @cart = current_user.cart || current_user.create_cart!
-    @cart_items = @cart.cart_items.includes(product: [image_attachment: :blob, :category])
+    @cart_items = @cart.cart_items.includes(product: [:category, { image_attachment: :blob }])
 
     @subtotal = @cart_items.sum do |item|
       item.product.price * item.quantity
