@@ -1,0 +1,41 @@
+<section class="orders-page">
+  <div class="container">
+    <div class="orders-header">
+      <h1>My Orders</h1>
+      <p>Review your past purchases.</p>
+    </div>
+
+    <% if @orders.any? %>
+      <div class="orders-list">
+        <% @orders.each do |order| %>
+          <div class="order-card">
+            <div class="order-card-top">
+              <div>
+                <p><strong>Order ID:</strong> <%= order.id %></p>
+                <p><strong>Status:</strong> <%= order.status %></p>
+              </div>
+              <div>
+                <p><strong>Total:</strong> ¥<%= order.total_amount %></p>
+                <p><strong>Date:</strong> <%= order.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+              </div>
+            </div>
+
+            <div class="order-items-preview">
+              <% order.order_items.each do |item| %>
+                <p><%= item.product.name %> × <%= item.quantity %></p>
+              <% end %>
+            </div>
+
+            <%= link_to "View Details", order_path(order), class: "small-btn" %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="empty-cart-card">
+        <h2>No orders yet</h2>
+        <p>You have not placed any orders yet.</p>
+        <%= link_to "Start Shopping", root_path, class: "primary-btn" %>
+      </div>
+    <% end %>
+  </div>
+</section>

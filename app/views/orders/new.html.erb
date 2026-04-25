@@ -1,0 +1,84 @@
+<section class="checkout-page">
+  <div class="container">
+    <div class="checkout-header">
+      <h1>Checkout</h1>
+      <p>Enter your shipping details and review your order.</p>
+    </div>
+
+    <div class="checkout-layout">
+      <div class="checkout-form-card">
+        <h2>Shipping Address</h2>
+
+        <% if @address.errors.any? %>
+          <div class="alert">
+            <ul>
+              <% @address.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <%= form_with model: @address, url: orders_path, local: true do |f| %>
+          <div class="form-group">
+            <%= f.label :postal_code %>
+            <%= f.text_field :postal_code, class: "form-input", placeholder: "120-0015" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :prefecture %>
+            <%= f.text_field :prefecture, class: "form-input", placeholder: "Tokyo" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :city %>
+            <%= f.text_field :city, class: "form-input", placeholder: "Adachi-ku" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :address_line, "Address" %>
+            <%= f.text_field :address_line, class: "form-input", placeholder: "3-5-17 Adachi" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :building %>
+            <%= f.text_field :building, class: "form-input", placeholder: "Tokiwa Mansion 203" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :phone_number %>
+            <%= f.text_field :phone_number, class: "form-input", placeholder: "09012345678" %>
+          </div>
+
+          <%= f.submit "Place Order", class: "primary-btn checkout-submit-btn" %>
+        <% end %>
+      </div>
+
+      <aside class="checkout-summary-card">
+        <h2>Order Summary</h2>
+
+        <% @cart_items.each do |item| %>
+          <div class="checkout-item-row">
+            <span><%= item.product.name %> × <%= item.quantity %></span>
+            <span>¥<%= item.product.price * item.quantity %></span>
+          </div>
+        <% end %>
+
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>¥<%= @subtotal %></span>
+        </div>
+
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span>¥<%= @shipping_fee %></span>
+        </div>
+
+        <div class="summary-row summary-total">
+          <span>Total</span>
+          <span>¥<%= @total %></span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,36 @@
+<section class="order-complete-page">
+  <div class="container">
+    <div class="order-complete-card">
+      <h1>Order Confirmed</h1>
+      <p>Your order has been placed successfully.</p>
+
+      <div class="order-complete-summary">
+        <p><strong>Order ID:</strong> <%= @order.id %></p>
+        <p><strong>Total:</strong> ¥<%= @order.total_amount %></p>
+        <p><strong>Status:</strong> <%= @order.status %></p>
+      </div>
+
+      <h2>Shipping Address</h2>
+      <p><%= @order.address.postal_code %></p>
+      <p><%= @order.address.prefecture %>, <%= @order.address.city %></p>
+      <p><%= @order.address.address_line %></p>
+      <% if @order.address.building.present? %>
+        <p><%= @order.address.building %></p>
+      <% end %>
+      <p><%= @order.address.phone_number %></p>
+
+      <h2>Items</h2>
+      <% @order.order_items.each do |item| %>
+        <div class="checkout-item-row">
+          <span><%= item.product.name %> × <%= item.quantity %></span>
+          <span>¥<%= item.price * item.quantity %></span>
+        </div>
+      <% end %>
+
+      <div class="order-complete-actions">
+        <%= link_to "Back to Home", root_path, class: "secondary-btn" %>
+        <%= link_to "View My Orders", orders_path, class: "primary-btn" %>
+      </div>
+    </div>
+  </div>
+</section>
