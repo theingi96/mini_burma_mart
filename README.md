@@ -1,24 +1,120 @@
-# README
+## データベース設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### user
+| Column             | Type     | Options                   |
+| ------------------ | -------- | ------------------------- |
+| id                 | bigint   | primary key               |
+| email              | string   | null: false, unique: true |
+| encrypted_password | string   | null: false               |
+| created_at         | datetime | null: false               |
+| updated_at         | datetime | null: false               |
 
-Things you may want to cover:
+### Association
+has_one :cart
+has_many :orders
+has_many :addresses
 
-* Ruby version
+### categories
+| Column     | Type     | Options                   |
+| ---------- | -------- | ------------------------- |
+| id         | bigint   | primary key               |
+| name       | string   | null: false, unique: true |
+| created_at | datetime | null: false               |
+| updated_at | datetime | null: false               |
 
-* System dependencies
+### Association
+has_many :products
 
-* Configuration
+### products
+| Column      | Type       | Options                        |
+| ----------- | ---------- | ------------------------------ |
+| id          | bigint     | primary key                    |
+| name        | string     | null: false                    |
+| description | text       | null: false                    |
+| price       | integer    | null: false                    |
+| stock       | integer    | null: false                    |
+| is_active   | boolean    | default: true                  |
+| category    | references | null: false, foreign_key: true |
+| created_at  | datetime   | null: false                    |
+| updated_at  | datetime   | null: false                    |
 
-* Database creation
+### Association
+belongs_to :category
+has_many :cart_items
+has_many :order_items
 
-* Database initialization
+### carts
+| Column     | Type       | Options                                |
+| ---------- | ---------- | -------------------------------------- |
+| id         | bigint     | primary key                            |
+| user       | references | null: false, foreign_key: true, unique |
+| status     | integer    | default: 0                             |
+| created_at | datetime   | null: false                            |
+| updated_at | datetime   | null: false                            |
 
-* How to run the test suite
+### Association
+belongs_to :user
+has_many :cart_items
 
-* Services (job queues, cache servers, search engines, etc.)
+### cart_items
+| Column     | Type       | Options                        |
+| ---------- | ---------- | ------------------------------ |
+| id         | bigint     | primary key                    |
+| cart       | references | null: false, foreign_key: true |
+| product    | references | null: false, foreign_key: true |
+| quantity   | integer    | null: false                    |
+| created_at | datetime   | null: false                    |
+| updated_at | datetime   | null: false                    |
 
-* Deployment instructions
+### Association
+belongs_to :cart
+belongs_to :product
 
-* ...
+### addresses
+| Column       | Type       | Options                        |
+| ------------ | ---------- | ------------------------------ |
+| id           | bigint     | primary key                    |
+| user         | references | null: false, foreign_key: true |
+| postal_code  | string     | null: false                    |
+| prefecture   | string     | null: false                    |
+| city         | string     | null: false                    |
+| address_line | string     | null: false                    |
+| building     | string     |                                |
+| phone_number | string     | null: false                    |
+| created_at   | datetime   | null: false                    |
+| updated_at   | datetime   | null: false                    |
+
+### Association
+belongs_to :user
+has_many :orders
+
+### orders
+| Column       | Type       | Options                        |
+| ------------ | ---------- | ------------------------------ |
+| id           | bigint     | primary key                    |
+| user         | references | null: false, foreign_key: true |
+| address      | references | null: false, foreign_key: true |
+| total_amount | integer    | null: false                    |
+| status       | integer    | default: 0                     |
+| created_at   | datetime   | null: false                    |
+| updated_at   | datetime   | null: false                    |
+
+### Association
+belongs_to :user
+belongs_to :address
+has_many :order_items
+
+### order_items
+| Column     | Type       | Options                        |
+| ---------- | ---------- | ------------------------------ |
+| id         | bigint     | primary key                    |
+| order      | references | null: false, foreign_key: true |
+| product    | references | null: false, foreign_key: true |
+| price      | integer    | null: false                    |
+| quantity   | integer    | null: false                    |
+| created_at | datetime   | null: false                    |
+| updated_at | datetime   | null: false                    |
+
+### Association
+belongs_to :order
+belongs_to :product
